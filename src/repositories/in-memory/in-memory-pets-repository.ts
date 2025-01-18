@@ -36,7 +36,7 @@ export class InMemoryPetsRepository implements PetsRepository {
     findByCaracteristics: FindByAnotherParams,
     page: number,
   ): Promise<Pet[] | null> {
-    const { city, height, age, breed, size } = findByCaracteristics
+    const { city, height, age, breed, size,name, id, org_id } = findByCaracteristics
 
     const pets = this.items.filter((pet) => {
       const matchesCity = pet.city === city
@@ -44,14 +44,18 @@ export class InMemoryPetsRepository implements PetsRepository {
       const matchesAge = age ? pet.age === age : true
       const matchesBreed = breed ? pet.breed === breed : true
       const matchesSize = size ? pet.size === size : true
+      const matchesName = name ? pet.name === name : true
+      const matchesId = id ? pet.id === id : true
+      const matchesOrgId = org_id ? pet.org_id === org_id : true
+
 
       if (!matchesCity) {
         return []
       }
 
       const matchesOptionalCriteria =
-        height || age || breed || size
-          ? matchesHeight || matchesAge || matchesBreed || matchesSize
+        height || age || breed || size || name || id || org_id
+          ? matchesHeight || matchesAge || matchesBreed || matchesSize || matchesName || matchesId || matchesOrgId
           : true
 
       return matchesCity && matchesOptionalCriteria
