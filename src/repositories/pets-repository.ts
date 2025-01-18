@@ -20,4 +20,6 @@ export interface PetsRepository {
     findByCaracteristics: FindByAnotherParams,
     page: number,
   ): Promise<Pet[] | null>
+
+  deleteById(id: string): Promise<Pet | null>
 }

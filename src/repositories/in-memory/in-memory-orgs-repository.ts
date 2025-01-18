@@ -6,9 +6,9 @@ export class InMemoryOrgsRepository implements OrgsRepository {
   public items: Org[] = []
 
   async searchOrgs(): Promise<Org[] | null> {
-    const orgs = this.items 
+    const orgs = this.items
 
-    if(!orgs.length) return null
+    if (!orgs.length) return null
 
     return orgs
   }

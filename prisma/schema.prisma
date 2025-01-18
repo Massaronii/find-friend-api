@@ -15,17 +15,17 @@ datasource db {
 
 model Org {
   id            String  @id @default(uuid())
-  name          String
+  name          String  @unique
   email         String  @unique
-  password_hash String
-  phone         String
-  cep           String
+  password_hash String 
+  phone         String  @unique
+  cep           String  
   state         String
   city          String
   neighborhood  String
   street        String
-  latitude      Decimal
-  longitude     Decimal
+  latitude      Decimal 
+  longitude     Decimal 
   pets          Pet[]   @relation("OrgToPets")
 
   @@map("orgs")

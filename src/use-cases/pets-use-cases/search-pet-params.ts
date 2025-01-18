@@ -1,16 +1,30 @@
-import { FindByAnotherParams, PetsRepository } from "@/repositories/pets-repository";
-import { Pet } from "@prisma/client";
+import {
+  FindByAnotherParams,
+  PetsRepository,
+} from '@/repositories/pets-repository'
+import { Pet } from '@prisma/client'
+import { PetDontSearchError } from '../error/pet-dont-search-error'
+
+type SearchPetByParamsResponse = Pet[]
 
 export class SearchPetByParams {
-    constructor(private petsRepository: PetsRepository) {}
+  constructor(private petsRepository: PetsRepository) {}
 
-    async execute(params: FindByAnotherParams, page: number):Promise<Pet[] | null> {
-        const pets = await this.petsRepository.findByParams({
-            ...params,
-        }, page)
+  async execute(
+    params: FindByAnotherParams,
+    page: number,
+  ): Promise<SearchPetByParamsResponse> {
+    const pets = await this.petsRepository.findByParams(
+      {
+        ...params,
+      },
+      page,
+    )
 
-        if(!pets) return null
-
-        return pets
+    if (!pets) {
+      throw new PetDontSearchError()
     }
+
+    return pets
+  }
 }
