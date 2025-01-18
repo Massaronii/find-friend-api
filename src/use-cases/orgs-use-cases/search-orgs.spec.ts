@@ -1,18 +1,18 @@
 import {describe, it, expect, beforeEach} from 'vitest'
 import { InMemoryOrgsRepository } from '@/repositories/in-memory/in-memory-orgs-repository'
-import { GetOrgs } from './get-orgs'
+import { FetchOrgs } from './search-orgs'
 
 let orgsRepository: InMemoryOrgsRepository
-let sut: GetOrgs
+let sut: FetchOrgs
  
 
-describe('get orgs use case', () => {
+describe('fetch orgs use case', () => {
     beforeEach(() => {
         orgsRepository = new InMemoryOrgsRepository()
-        sut = new GetOrgs(orgsRepository)
+        sut = new FetchOrgs(orgsRepository)
       })
 
-      it('should search orgs', async () => {
+      it('should fetch orgs', async () => {
            
         await orgsRepository.create({
           name: 'Org 1',
@@ -58,8 +58,17 @@ describe('get orgs use case', () => {
 
         const org = await sut.execute()
 
-        console.log(org)
+        if(!org) return
 
         expect(org).toEqual(expect.any(Array))
+        expect(org.length).toEqual(3)
+      })
+
+      it('fetch not orgs', async () => {
+           
+        const org = await sut.execute()
+
+
+        expect(org).toEqual(null)
       })
 })

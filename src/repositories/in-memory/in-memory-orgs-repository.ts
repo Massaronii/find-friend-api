@@ -5,13 +5,15 @@ import { randomUUID } from 'node:crypto'
 export class InMemoryOrgsRepository implements OrgsRepository {
   public items: Org[] = []
 
-  async getOrgs(): Promise<Org[] | null> {
-    const orgs = this.items
+  async searchOrgs(): Promise<Org[] | null> {
+    const orgs = this.items 
+
+    if(!orgs.length) return null
 
     return orgs
   }
 
-  async getOrgById(id: string): Promise<Org | null> {
+  async searchOrgById(id: string): Promise<Org | null> {
     const org = this.items.find((item) => item.id === id)
 
     if (!org) {
@@ -23,7 +25,7 @@ export class InMemoryOrgsRepository implements OrgsRepository {
 
   async create(data: Prisma.OrgUncheckedCreateInput): Promise<Org> {
     const org = {
-      id: randomUUID(),
+      id: data.id ?? randomUUID(),
       name: data.name,
       email: data.email,
       password_hash: data.password_hash,

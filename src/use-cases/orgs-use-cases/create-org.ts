@@ -1,4 +1,4 @@
-import { InMemoryOrgsRepository } from '@/repositories/in-memory/in-memory-orgs-repository'
+import { OrgsRepository } from '@/repositories/orgs-repository'
 import { Org } from '@prisma/client'
 
 interface CreateOrgUseCaseRequest {
@@ -16,7 +16,7 @@ interface CreateOrgUseCaseRequest {
 }
 
 export class CreateOrg {
-  constructor(private orgsRepository: InMemoryOrgsRepository) {}
+  constructor(private orgsRepository: OrgsRepository) {}
 
   async execute({
     name,

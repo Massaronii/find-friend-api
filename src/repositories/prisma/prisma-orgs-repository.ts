@@ -3,13 +3,13 @@ import { prisma } from '../../utils/lib/prisma'
 import { OrgsRepository } from '../orgs-repository'
 
 export class PrismaOrgsRepository implements OrgsRepository {
-  async getOrgs(): Promise<Org[] | null> {
+  async searchOrgs(): Promise<Org[] | null> {
     const orgs = prisma.org.findMany()
 
     return orgs
   }
 
-  async getOrgById(id: string): Promise<Org | null> {
+  async searchOrgById(id: string): Promise<Org | null> {
     const org = prisma.org.findUnique({
       where: {
         id,
