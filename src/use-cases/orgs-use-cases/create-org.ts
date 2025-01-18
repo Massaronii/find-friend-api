@@ -15,6 +15,10 @@ interface CreateOrgUseCaseRequest {
   longitude: number
 }
 
+interface CreateOrgUseCaseResponse {
+  org: Org
+}
+
 export class CreateOrg {
   constructor(private orgsRepository: OrgsRepository) {}
 
@@ -30,7 +34,7 @@ export class CreateOrg {
     street,
     latitude,
     longitude,
-  }: CreateOrgUseCaseRequest): Promise<Org> {
+  }: CreateOrgUseCaseRequest): Promise<CreateOrgUseCaseResponse> {
     const org  = await this.orgsRepository.create({
       name,
       email,
@@ -46,7 +50,7 @@ export class CreateOrg {
     })
 
     return {
-        ...org,
+        org,
     }
   }
 }

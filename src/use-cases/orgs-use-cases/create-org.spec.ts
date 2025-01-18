@@ -12,7 +12,7 @@ describe('create org use case', () => {
       })
 
       it('should create a org', async () => {
-        const org = await sut.execute({
+        const {org} = await sut.execute({
           name: 'Org 1',
           email: 'org1@example.com',
           password_hash: 'password_hash',
