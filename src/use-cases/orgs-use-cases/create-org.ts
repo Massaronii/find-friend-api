@@ -1,5 +1,6 @@
-import { InMemoryOrgsRepository } from '@/repositories/in-memory/in-memory-orgs-repository'
+import { OrgsRepository } from '@/repositories/orgs-repository'
 import { Org } from '@prisma/client'
+import { OrgAlreadyExistsError } from '../error/org-already-exists-error'
 
 interface CreateOrgUseCaseRequest {
   name: string
@@ -15,8 +16,12 @@ interface CreateOrgUseCaseRequest {
   longitude: number
 }
 
+interface CreateOrgUseCaseResponse {
+  org: Org
+}
+
 export class CreateOrg {
-  constructor(private orgsRepository: InMemoryOrgsRepository) {}
+  constructor(private orgsRepository: OrgsRepository) {}
 
   async execute({
     name,
@@ -30,8 +35,15 @@ export class CreateOrg {
     street,
     latitude,
     longitude,
-  }: CreateOrgUseCaseRequest): Promise<Org> {
-    const org  = await this.orgsRepository.create({
+  }: CreateOrgUseCaseRequest): Promise<CreateOrgUseCaseResponse> {
+    const existOrgWithSameNameOrEmailOrPhone =
+      await this.orgsRepository.searchOrgByParams(name, phone, email)
+
+    if (existOrgWithSameNameOrEmailOrPhone?.length) {
+      throw new OrgAlreadyExistsError()
+    }
+
+    const org = await this.orgsRepository.create({
       name,
       email,
       password_hash,
@@ -46,7 +58,7 @@ export class CreateOrg {
     })
 
     return {
-        ...org,
+      org,
     }
   }
 }

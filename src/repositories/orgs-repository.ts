@@ -1,9 +1,15 @@
 import { Org, Prisma } from '@prisma/client'
 
 export interface OrgsRepository {
-  getOrgs(): Promise<Org[] | null>
+  searchOrgs(): Promise<Org[]>
 
-  getOrgById(id: string): Promise<Org | null>
+  searchOrgById(id: string): Promise<Org | null>
+
+  searchOrgByParams(
+    name: string,
+    phone: string,
+    email: string,
+  ): Promise<Org[] | null>
 
   create(data: Prisma.OrgUncheckedCreateInput): Promise<Org>
 }

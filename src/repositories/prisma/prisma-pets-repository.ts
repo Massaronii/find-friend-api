@@ -3,14 +3,24 @@ import { FindByAnotherParams, PetsRepository } from '../pets-repository'
 import { prisma } from '@/utils/lib/prisma'
 
 export class PrismaPetsRepository implements PetsRepository {
-  create(data: Prisma.PetUncheckedCreateInput): Promise<Pet> {
+  deleteById(id: string): Promise<Pet | null> {
+    const pet = prisma.pet.delete({
+      where: {
+        id,
+      },
+    })
+
+    return pet
+  }
+
+  async create(data: Prisma.PetUncheckedCreateInput): Promise<Pet> {
     const pet = prisma.pet.create({
       data,
     })
     return pet
   }
 
-  findById(id: string): Promise<Pet | null> {
+  async findById(id: string): Promise<Pet | null> {
     const pet = prisma.pet.findUnique({
       where: {
         id,
@@ -20,7 +30,7 @@ export class PrismaPetsRepository implements PetsRepository {
     return pet
   }
 
-  findByParams(
+  async findByParams(
     findByCaracteristics: FindByAnotherParams,
     page: number,
   ): Promise<Pet[] | null> {

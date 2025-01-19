@@ -17,6 +17,8 @@ export class InMemoryPetsRepository implements PetsRepository {
       org_id: data.org_id,
     }
 
+    this.items.push(pet)
+
     return pet
   }
 
@@ -34,7 +36,8 @@ export class InMemoryPetsRepository implements PetsRepository {
     findByCaracteristics: FindByAnotherParams,
     page: number,
   ): Promise<Pet[] | null> {
-    const { city, height, age, breed, size } = findByCaracteristics
+    const { city, height, age, breed, size, name, id, org_id } =
+      findByCaracteristics
 
     const pets = this.items.filter((pet) => {
       const matchesCity = pet.city === city
@@ -42,14 +45,23 @@ export class InMemoryPetsRepository implements PetsRepository {
       const matchesAge = age ? pet.age === age : true
       const matchesBreed = breed ? pet.breed === breed : true
       const matchesSize = size ? pet.size === size : true
+      const matchesName = name ? pet.name === name : true
+      const matchesId = id ? pet.id === id : true
+      const matchesOrgId = org_id ? pet.org_id === org_id : true
 
       if (!matchesCity) {
         return []
       }
 
       const matchesOptionalCriteria =
-        height || age || breed || size
-          ? matchesHeight || matchesAge || matchesBreed || matchesSize
+        height || age || breed || size || name || id || org_id
+          ? matchesHeight ||
+            matchesAge ||
+            matchesBreed ||
+            matchesSize ||
+            matchesName ||
+            matchesId ||
+            matchesOrgId
           : true
 
       return matchesCity && matchesOptionalCriteria
@@ -60,5 +72,17 @@ export class InMemoryPetsRepository implements PetsRepository {
     }
 
     return pets.slice((page - 1) * 20, page * 20)
+  }
+
+  async deleteById(id: string): Promise<Pet | null> {
+    const pet = this.items.find((item) => item.id === id)
+
+    if (!pet) {
+      return null
+    }
+
+    this.items.splice(this.items.indexOf(pet), 1)
+
+    return pet
   }
 }

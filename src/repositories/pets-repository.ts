@@ -1,11 +1,14 @@
 import { Pet, Prisma } from '@prisma/client'
 
 export interface FindByAnotherParams {
+  id?: string
+  name?: string
   city?: string
   height?: number
   age?: number
   breed?: string
   size?: string
+  org_id?: string
 }
 
 export interface PetsRepository {
@@ -17,4 +20,6 @@ export interface PetsRepository {
     findByCaracteristics: FindByAnotherParams,
     page: number,
   ): Promise<Pet[] | null>
+
+  deleteById(id: string): Promise<Pet | null>
 }
