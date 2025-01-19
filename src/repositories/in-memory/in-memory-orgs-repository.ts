@@ -5,10 +5,29 @@ import { randomUUID } from 'node:crypto'
 export class InMemoryOrgsRepository implements OrgsRepository {
   public items: Org[] = []
 
-  async searchOrgs(): Promise<Org[] | null> {
-    const orgs = this.items
+  async searchOrgByParams(
+    name: string,
+    phone: string,
+    email: string,
+  ): Promise<Org[]> {
+    const orgs = this.items.filter((org) => {
+      const matchesName = name ? org.name === name : true
+      const matchesPhone = phone ? org.phone === phone : true
+      const matchesEmail = email ? org.email === email : true
 
-    if (!orgs.length) return null
+      const matchesOptionalCriteria =
+        name || phone || email
+          ? matchesName || matchesPhone || matchesEmail
+          : true
+
+      return matchesOptionalCriteria
+    })
+
+    return orgs
+  }
+
+  async searchOrgs(): Promise<Org[]> {
+    const orgs = this.items
 
     return orgs
   }

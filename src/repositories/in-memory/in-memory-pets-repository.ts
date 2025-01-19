@@ -76,7 +76,6 @@ export class InMemoryPetsRepository implements PetsRepository {
 
   async deleteById(id: string): Promise<Pet | null> {
     const pet = this.items.find((item) => item.id === id)
-    console.log(pet)
 
     if (!pet) {
       return null

@@ -1,5 +1,5 @@
 export class PetDontDeleteError extends Error {
-  constructor(){
+  constructor() {
     super("Pet don't delete, retry")
   }
 }

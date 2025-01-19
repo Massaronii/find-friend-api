@@ -19,8 +19,8 @@
 [] Para uma ORG fazer ações na aplicação precisa estar logada
 [] Apenas a ORG pode cadastrar um pet
 [] Apenas a ORG pode excluir um pet
-[] Nome da ORG deve ser único
-[] Email da ORG deve ser único
-[] Telefone da ORG deve ser único
+[x] Nome da ORG deve ser único
+[x] Email da ORG deve ser único
+[x] Telefone da ORG deve ser único
 [x] Um pet não pode estar em mais de uma ORG
 

@@ -1,5 +1,6 @@
 import { OrgsRepository } from '@/repositories/orgs-repository'
 import { Org } from '@prisma/client'
+import { OrgAlreadyExistsError } from '../error/org-already-exists-error'
 
 interface CreateOrgUseCaseRequest {
   name: string
@@ -35,7 +36,14 @@ export class CreateOrg {
     latitude,
     longitude,
   }: CreateOrgUseCaseRequest): Promise<CreateOrgUseCaseResponse> {
-    const org  = await this.orgsRepository.create({
+    const existOrgWithSameNameOrEmailOrPhone =
+      await this.orgsRepository.searchOrgByParams(name, phone, email)
+
+    if (existOrgWithSameNameOrEmailOrPhone?.length) {
+      throw new OrgAlreadyExistsError()
+    }
+
+    const org = await this.orgsRepository.create({
       name,
       email,
       password_hash,
@@ -50,7 +58,7 @@ export class CreateOrg {
     })
 
     return {
-        org,
+      org,
     }
   }
 }

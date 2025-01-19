@@ -1,5 +1,5 @@
 export class OrgDontExistsError extends Error {
-  constructor(){
+  constructor() {
     super("Org don't already exists")
   }
 }
