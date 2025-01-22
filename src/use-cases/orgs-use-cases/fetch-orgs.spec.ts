@@ -1,6 +1,6 @@
 import { describe, it, expect, beforeEach } from 'vitest'
 import { InMemoryOrgsRepository } from '@/repositories/in-memory/in-memory-orgs-repository'
-import { FetchOrgs } from './search-orgs'
+import { FetchOrgs } from './fetch-orgs'
 import { OrgDontExistsError } from '../error/org-dont-exists-error'
 
 let orgsRepository: InMemoryOrgsRepository

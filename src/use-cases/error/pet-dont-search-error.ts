@@ -1,5 +1,5 @@
 export class PetDontSearchError extends Error {
-  constructor(){
+  constructor() {
     super("Pet don't exists")
   }
 }

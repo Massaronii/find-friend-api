@@ -10,6 +10,12 @@ export class DeletePet {
   constructor(private petsRepository: PetsRepository) {}
 
   async execute(id: string): Promise<DeleteUseCaseResponse> {
+    const findPet = await this.petsRepository.findById(id)
+
+    if (!findPet) {
+      throw new PetDontDeleteError()
+    }
+
     const pet = await this.petsRepository.deleteById(id)
 
     if (!pet) {

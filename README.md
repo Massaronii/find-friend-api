@@ -8,7 +8,6 @@
 [x] Deve ser possível se cadastrar como uma ORG
 [] Deve ser possível realizar login como uma ORG
 [] Deve ser possível visualizar as ORGs pertos de você
-[] Deve ser possível visualizar os pets perto de você
 
 ### Regras de negócio
 
