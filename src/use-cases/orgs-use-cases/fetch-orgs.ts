@@ -3,6 +3,7 @@ import { Org } from '@prisma/client'
 import { OrgDontExistsError } from '../error/org-dont-exists-error'
 
 type FetchOrgsResponse = Org[]
+
 export class FetchOrgs {
   constructor(private orgsRepository: OrgsRepository) {}
 
