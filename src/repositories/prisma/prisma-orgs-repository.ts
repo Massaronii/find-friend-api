@@ -1,8 +1,21 @@
-import { Prisma } from '@prisma/client'
+import { Org, Prisma } from '@prisma/client'
 import { prisma } from '../../utils/lib/prisma'
-import { OrgsRepository } from '../orgs-repository'
+import { FindManyNearbyParams, OrgsRepository } from '../orgs-repository'
 
 export class PrismaOrgsRepository implements OrgsRepository {
+  async findManyNearby({ latitude, longitude }: FindManyNearbyParams) {
+    const gyms = await prisma.$queryRaw<Org[]>`
+    SELECT * from orgs
+    WHERE ( 6371 * acos( cos( radians(${latitude}) ) * cos( radians( latitude ) ) * cos( radians( longitude ) - radians(${longitude}) ) + sin( radians(${latitude}) ) * sin( radians( latitude ) ) ) ) <= 10
+  `
+
+    if (gyms.length === 0) {
+      return null
+    }
+
+    return gyms
+  }
+
   searchOrgByParams(name: string, phone: string, email: string) {
     const orgs = prisma.org.findMany({
       where: {
