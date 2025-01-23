@@ -52,12 +52,10 @@ describe('search pet by city', () => {
       org_id: org.id,
     })
 
-    const pet = await sut.execute(
-      {
-        city: 'Santosss',
-      },
-      1,
-    )
+    const pet = await sut.execute({
+      city: 'Santosss',
+      page: 1,
+    })
 
     expect(pet).rejects.toBeInstanceOf(PetDontSearchError)
   })
@@ -97,12 +95,10 @@ describe('search pet by city', () => {
       org_id: org.id,
     })
 
-    const pet = await sut.execute(
-      {
-        city: 'Santos',
-      },
-      1,
-    )
+    const pet = await sut.execute({
+      city: 'Santos',
+      page: 1,
+    })
 
     expect(pet).toEqual(expect.any(Array))
     expect(pet?.length).toEqual(2)
@@ -143,12 +139,10 @@ describe('search pet by city', () => {
       org_id: org.id,
     })
 
-    const pet = await sut.execute(
-      {
-        name: 'Pet 2',
-      },
-      1,
-    )
+    const pet = await sut.execute({
+      name: 'Pet 2',
+      page: 1,
+    })
 
     expect(pet).toEqual(expect.any(Array))
     expect(pet?.length).toEqual(1)
@@ -189,12 +183,10 @@ describe('search pet by city', () => {
       org_id: org.id,
     })
 
-    const pet = await sut.execute(
-      {
-        name: 'Pet 22',
-      },
-      1,
-    )
+    const pet = await sut.execute({
+      name: 'Pet 22',
+      page: 1,
+    })
 
     expect(pet).rejects.toBeInstanceOf(PetDontSearchError)
   })
@@ -234,12 +226,10 @@ describe('search pet by city', () => {
       org_id: org.id,
     })
 
-    const pet = await sut.execute(
-      {
-        id: '123',
-      },
-      1,
-    )
+    const pet = await sut.execute({
+      id: '123',
+      page: 1,
+    })
 
     expect(pet).rejects.toBeInstanceOf(PetDontSearchError)
   })
@@ -279,12 +269,10 @@ describe('search pet by city', () => {
       org_id: org.id,
     })
 
-    const pet = await sut.execute(
-      {
-        id: createPet.id,
-      },
-      1,
-    )
+    const pet = await sut.execute({
+      id: createPet.id,
+      page: 1,
+    })
 
     expect(pet).toEqual(expect.any(Array))
     expect(pet?.length).toEqual(1)
@@ -325,12 +313,10 @@ describe('search pet by city', () => {
       org_id: org.id,
     })
 
-    const pet = await sut.execute(
-      {
-        age: createPet.age,
-      },
-      1,
-    )
+    const pet = await sut.execute({
+      age: createPet.age,
+      page: 1,
+    })
 
     expect(pet).toEqual(expect.any(Array))
     expect(pet?.length).toEqual(2)
@@ -371,12 +357,10 @@ describe('search pet by city', () => {
       org_id: org.id,
     })
 
-    const pet = await sut.execute(
-      {
-        age: 3,
-      },
-      1,
-    )
+    const pet = await sut.execute({
+      age: 3,
+      page: 1,
+    })
 
     expect(pet).rejects.toBeInstanceOf(PetDontSearchError)
   })
@@ -416,12 +400,10 @@ describe('search pet by city', () => {
       org_id: org.id,
     })
 
-    const pet = await sut.execute(
-      {
-        breed: createPet.breed,
-      },
-      1,
-    )
+    const pet = await sut.execute({
+      breed: createPet.breed,
+      page: 1,
+    })
 
     expect(pet).toEqual(expect.any(Array))
     expect(pet?.length).toEqual(2)
@@ -462,12 +444,10 @@ describe('search pet by city', () => {
       org_id: org.id,
     })
 
-    const pet = await sut.execute(
-      {
-        breed: 'ghsa',
-      },
-      1,
-    )
+    const pet = await sut.execute({
+      breed: 'ghsa',
+      page: 1,
+    })
 
     expect(pet).rejects.toBeInstanceOf(PetDontSearchError)
   })
@@ -507,12 +487,10 @@ describe('search pet by city', () => {
       org_id: org.id,
     })
 
-    const pet = await sut.execute(
-      {
-        size: createPet.size,
-      },
-      1,
-    )
+    const pet = await sut.execute({
+      size: createPet.size,
+      page: 1,
+    })
 
     expect(pet).toEqual(expect.any(Array))
     expect(pet?.length).toEqual(2)
@@ -553,12 +531,10 @@ describe('search pet by city', () => {
       org_id: org.id,
     })
 
-    const pet = await sut.execute(
-      {
-        size: 'large',
-      },
-      1,
-    )
+    const pet = await sut.execute({
+      size: 'large',
+      page: 1,
+    })
 
     expect(pet).rejects.toBeInstanceOf(PetDontSearchError)
   })
@@ -598,12 +574,10 @@ describe('search pet by city', () => {
       org_id: org.id,
     })
 
-    const pet = await sut.execute(
-      {
-        height: createPet.height,
-      },
-      1,
-    )
+    const pet = await sut.execute({
+      height: createPet.height,
+      page: 1,
+    })
 
     expect(pet).toEqual(expect.any(Array))
     expect(pet?.length).toEqual(2)
@@ -644,12 +618,10 @@ describe('search pet by city', () => {
       org_id: org.id,
     })
 
-    const pet = await sut.execute(
-      {
-        height: 2,
-      },
-      1,
-    )
+    const pet = await sut.execute({
+      height: 2,
+      page: 1,
+    })
 
     expect(pet).rejects.toBeInstanceOf(PetDontSearchError)
   })
@@ -689,12 +661,10 @@ describe('search pet by city', () => {
       org_id: org.id,
     })
 
-    const pet = await sut.execute(
-      {
-        org_id: createPet.org_id,
-      },
-      1,
-    )
+    const pet = await sut.execute({
+      org_id: createPet.org_id,
+      page: 1,
+    })
 
     expect(pet).toEqual(expect.any(Array))
     expect(pet?.length).toEqual(2)
@@ -735,12 +705,10 @@ describe('search pet by city', () => {
       org_id: org.id,
     })
 
-    const pet = await sut.execute(
-      {
-        org_id: '123123',
-      },
-      1,
-    )
+    const pet = await sut.execute({
+      org_id: '123123',
+      page: 1,
+    })
 
     expect(pet).rejects.toBeInstanceOf(PetDontSearchError)
   })
