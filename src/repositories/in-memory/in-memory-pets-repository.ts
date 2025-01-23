@@ -1,5 +1,5 @@
 import { Prisma, Pet } from '@prisma/client'
-import { FindByAnotherParams, PetsRepository } from '../pets-repository'
+import { FindByParams, PetsRepository } from '../pets-repository'
 import { randomUUID } from 'node:crypto'
 
 export class InMemoryPetsRepository implements PetsRepository {
@@ -32,12 +32,8 @@ export class InMemoryPetsRepository implements PetsRepository {
     return pet
   }
 
-  async findByParams(
-    findByCaracteristics: FindByAnotherParams,
-    page: number,
-  ): Promise<Pet[] | null> {
-    const { city, height, age, breed, size, name, id, org_id } =
-      findByCaracteristics
+  async findByParams(params: FindByParams): Promise<Pet[] | null> {
+    const { city, id, org_id, name, height, age, breed, size, page } = params
 
     const pets = this.items.filter((pet) => {
       const matchesCity = pet.city === city
@@ -71,7 +67,9 @@ export class InMemoryPetsRepository implements PetsRepository {
       return null
     }
 
-    return pets.slice((page - 1) * 20, page * 20)
+    const pages = page || 1
+
+    return pets.slice((pages - 1) * 20, pages * 20)
   }
 
   async deleteById(id: string): Promise<Pet | null> {

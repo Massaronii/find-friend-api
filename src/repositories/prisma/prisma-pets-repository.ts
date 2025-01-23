@@ -1,7 +1,6 @@
 import { Prisma, Pet } from '@prisma/client'
-import { FindByAnotherParams, PetsRepository } from '../pets-repository'
+import { FindByParams, PetsRepository } from '../pets-repository'
 import { prisma } from '@/utils/lib/prisma'
-
 export class PrismaPetsRepository implements PetsRepository {
   deleteById(id: string): Promise<Pet | null> {
     const pet = prisma.pet.delete({
@@ -30,22 +29,22 @@ export class PrismaPetsRepository implements PetsRepository {
     return pet
   }
 
-  async findByParams(
-    findByCaracteristics: FindByAnotherParams,
-    page: number,
-  ): Promise<Pet[] | null> {
-    const { city, height, age, breed, size } = findByCaracteristics
-
+  async findByParams(params: FindByParams): Promise<Pet[] | null> {
+    const { city, id, org_id, name, height, age, breed, size, page } = params
+    const pages = page || 1
     const pets = prisma.pet.findMany({
       where: {
         city,
+        ...(name && { name }),
+        ...(id && { id }),
+        ...(org_id && { org_id }),
         ...(height && { height }),
         ...(age && { age }),
         ...(breed && { breed }),
         ...(size && { size }),
       },
       take: 20,
-      skip: (page - 1) * 20,
+      skip: (pages - 1) * 20,
     })
 
     return pets
