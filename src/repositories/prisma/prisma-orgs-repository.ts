@@ -16,12 +16,10 @@ export class PrismaOrgsRepository implements OrgsRepository {
     return gyms
   }
 
-  searchOrgByParams(name: string, phone: string, email: string) {
-    const orgs = prisma.org.findMany({
+  searchOrgsByEmail(email: string) {
+    const orgs = prisma.org.findUnique({
       where: {
-        ...(name && { name }),
-        ...(phone && { phone }),
-        ...(email && { email }),
+        email,
       },
     })
 
