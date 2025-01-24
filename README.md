@@ -7,7 +7,7 @@
 [x] Deve ser possível visualizar detalhes de um pet para adoção
 [x] Deve ser possível se cadastrar como uma ORG
 [] Deve ser possível realizar login como uma ORG
-[] Deve ser possível visualizar as ORGs pertos de você
+[x] Deve ser possível visualizar as ORGs pertos de você
 
 ### Regras de negócio
 
