@@ -1,3 +1,4 @@
+import { InvalidCredencialsError } from '@/use-cases/error/invalid-credencials.error'
 import { makeAuthenticateOrgUseCase } from '@/use-cases/factories/orgs/make-authenticateOrg-use-case'
 import { FastifyReply, FastifyRequest } from 'fastify'
 import { z } from 'zod'
@@ -13,12 +14,37 @@ export async function authenticateOrg(
 
   const { email, password } = schemaAuthenticateOrg.parse(request.body)
 
-  const useCase = makeAuthenticateOrgUseCase()
+  try {
+    const useCase = makeAuthenticateOrgUseCase()
 
-  const org = await useCase.execute({
-    email,
-    password,
-  })
+    const { org } = await useCase.execute({
+      email,
+      password,
+    })
 
-  reply.status(200).send(org)
+    const token = await reply.jwtSign(
+      {},
+      {
+        sign: {
+          sub: org.id,
+        },
+      },
+    )
+
+    return reply
+      .setCookie('token', token, {
+        httpOnly: true,
+        sameSite: 'strict',
+        path: '/',
+        secure: true,
+      })
+      .status(200)
+      .send({ token })
+  } catch (error) {
+    if (error instanceof InvalidCredencialsError) {
+      return reply.status(400).send({ message: error.message })
+    }
+
+    throw error
+  }
 }
