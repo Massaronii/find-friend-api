@@ -31,8 +31,17 @@ export async function authenticateOrg(
       },
     )
 
+    const refreshToken = await reply.jwtSign(
+      {},
+      {
+        sign: {
+          sub: org.id,
+        },
+      },
+    )
+
     return reply
-      .setCookie('token', token, {
+      .setCookie('refreshToken', refreshToken, {
         httpOnly: true,
         sameSite: 'strict',
         path: '/',
