@@ -4,15 +4,15 @@ import { z } from 'zod'
 
 export async function nearbyOrgs(request: FastifyRequest, reply: FastifyReply) {
   const schemaNearbyOrgs = z.object({
-    latitude: z.number().refine((value) => {
+    latitude: z.coerce.number().refine((value) => {
       return Math.abs(value) <= 90
     }),
-    longitude: z.number().refine((value) => {
+    longitude: z.coerce.number().refine((value) => {
       return Math.abs(value) <= 180
     }),
   })
 
-  const { latitude, longitude } = schemaNearbyOrgs.parse(request.body)
+  const { latitude, longitude } = schemaNearbyOrgs.parse(request.query)
 
   const useCase = makeFetchNearbyOrgsUseCase()
 
