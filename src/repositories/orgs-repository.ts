@@ -12,5 +12,7 @@ export interface OrgsRepository {
 
   findManyNearby(params: FindManyNearbyParams): Promise<Org[] | null>
 
+  searchOrgsByEmail(email: string): Promise<Org | null>
+
   create(data: Prisma.OrgUncheckedCreateInput): Promise<Org>
 }

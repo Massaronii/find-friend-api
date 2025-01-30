@@ -19,6 +19,16 @@ export class PrismaPetsRepository implements PetsRepository {
     return pet
   }
 
+  async findById(id: string): Promise<Pet | null> {
+    const pet = prisma.pet.findUnique({
+      where: {
+        id,
+      },
+    })
+
+    return pet
+  }
+
   async findByParams(params: FindByParams): Promise<Pet[] | null> {
     const { city, id, org_id, name, height, age, breed, size, page } = params
     const pages = page || 1
