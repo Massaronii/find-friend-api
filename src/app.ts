@@ -8,13 +8,17 @@ import { petsRoutes } from './http/controllers/pets/routes'
 
 export const app = fastify()
 
+app.register(fastifyCookie)
 app.register(fastifyJwt, {
   secret: env.JWT_SECRET,
+  cookie: {
+    cookieName: 'refreshToken',
+    signed: false,
+  },
   sign: {
-    expiresIn: '7d',
+    expiresIn: '10m',
   },
 })
-app.register(fastifyCookie)
 app.register(orgsRoutes)
 app.register(petsRoutes)
 

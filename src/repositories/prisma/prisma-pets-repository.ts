@@ -2,7 +2,7 @@ import { Prisma, Pet } from '@prisma/client'
 import { FindByParams, PetsRepository } from '../pets-repository'
 import { prisma } from '@/utils/lib/prisma'
 export class PrismaPetsRepository implements PetsRepository {
-  deleteById(id: string): Promise<Pet | null> {
+  async deleteById(id: string): Promise<Pet | null> {
     const pet = prisma.pet.delete({
       where: {
         id,

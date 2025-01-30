@@ -36,6 +36,7 @@ export async function authenticateOrg(
       {
         sign: {
           sub: org.id,
+          expiresIn: '7d',
         },
       },
     )

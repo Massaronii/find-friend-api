@@ -10,7 +10,7 @@ export async function searchOrgById(
     id: z.string().uuid(),
   })
 
-  const { id } = searchOrgByIdParamsSchema.parse(request.body)
+  const { id } = searchOrgByIdParamsSchema.parse(request.params)
 
   const useCase = makeSearchOrgsByIdUseCase()
 
