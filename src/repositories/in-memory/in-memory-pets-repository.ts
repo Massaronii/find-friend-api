@@ -21,16 +21,6 @@ export class InMemoryPetsRepository implements PetsRepository {
     return pet
   }
 
-  async findById(id: string): Promise<Pet | null> {
-    const pet = this.items.find((item) => item.id === id)
-
-    if (!pet) {
-      return null
-    }
-
-    return pet
-  }
-
   async findByParams(params: FindByParams): Promise<Pet[] | null> {
     const { city, id, org_id, name, height, age, breed, size, page } = params
 

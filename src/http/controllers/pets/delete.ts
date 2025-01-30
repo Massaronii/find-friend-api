@@ -8,7 +8,7 @@ export async function deletePet(request: FastifyRequest, reply: FastifyReply) {
   })
 
   const { id } = schemaDeletePet.parse(request.body)
-
+  console.log(id)
   const useCase = makeDeletePetUseCase()
 
   const { pet } = await useCase.execute(id)

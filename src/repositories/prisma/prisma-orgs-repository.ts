@@ -16,16 +16,6 @@ export class PrismaOrgsRepository implements OrgsRepository {
     return gyms
   }
 
-  searchOrgsByEmail(email: string) {
-    const orgs = prisma.org.findUnique({
-      where: {
-        email,
-      },
-    })
-
-    return orgs
-  }
-
   async searchOrgs() {
     const orgs = prisma.org.findMany()
 

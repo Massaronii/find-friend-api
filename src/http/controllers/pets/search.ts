@@ -5,17 +5,23 @@ import { z } from 'zod'
 export async function searchPets(request: FastifyRequest, reply: FastifyReply) {
   const schemaSearchPets = z.object({
     city: z.string().min(3).max(50),
-    name: z.string().min(3).max(50),
-    age: z.number().refine((value) => {
-      return Math.abs(value) <= 30
-    }),
-    breed: z.string().min(3).max(50),
-    size: z.string().min(3).max(50),
-    height: z.number().refine((value) => {
-      return Math.abs(value) <= 100
-    }),
-    org_id: z.string().uuid(),
-    page: z.number().default(1),
+    name: z.string().min(3).max(50).optional(),
+    age: z
+      .number()
+      .refine((value) => {
+        return Math.abs(value) <= 30
+      })
+      .optional(),
+    breed: z.string().min(3).max(50).optional(),
+    size: z.string().min(3).max(50).optional(),
+    height: z
+      .number()
+      .refine((value) => {
+        return Math.abs(value) <= 100
+      })
+      .optional(),
+    org_id: z.string().uuid().optional(),
+    page: z.number().default(1).optional(),
   })
 
   const { name, age, breed, size, height, city, org_id, page } =
