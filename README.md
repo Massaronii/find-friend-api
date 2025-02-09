@@ -24,9 +24,6 @@ Feito para estudos e aplicação de conhecimento. Como: TDD, testes automatizado
    ```bash
    git clone https://github.com/seu-usuario/find-a-friend-api.git
    cd find-a-friend-api
-  ```
-
-  ```bash
    npm install
   ```
 
