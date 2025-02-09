@@ -25,7 +25,7 @@ Feito para estudos e aplicação de conhecimento. Como: TDD, testes automatizado
    git clone https://github.com/seu-usuario/find-a-friend-api.git
    cd find-a-friend-api
    npm install
-  ```
+  
 
 2. Crie um arquivo `.env` na raiz do projeto com as seguintes variáveis de ambiente:
 
